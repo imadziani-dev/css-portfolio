@@ -1,48 +1,72 @@
-cat > index.html << 'EOF'
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Imad's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Imad Ziani</h1>
-        <p>Software Engineer</p>
-    </header>
-    <main>
-        <section id="projects">
-            <h2>My Work</h2>
-            <div class="project-card">
-                <h3>Project 1</h3>
-                <p>Description here</p>
-            </div>
-        </section>
-    </main>
-</body>
-</html>
-EOF
-
-cat > style.css << 'EOF'
 :root {
-    --primary: #2563eb;
-    --dark: #1e293b;
+    --sun-size: 100px;
+    --mercury-size: 8px;
+    --mercury-orbit: 120px;
+    --venus-size: 12px;
+    --venus-orbit: 180px;
+    /* Add other planet variables */
 }
+
 body {
-    font-family: 'Segoe UI', sans-serif;
-    line-height: 1.6;
-    color: var(--dark);
+    background: #000;
+    perspective: 1000px;
+    overflow: hidden;
 }
-header {
-    background: var(--primary);
-    color: white;
-    padding: 2rem;
-    text-align: center;
+
+.solar-system {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    transform-style: preserve-3d;
 }
-.project-card {
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 1rem 0;
+
+.sun {
+    position: absolute;
+    width: var(--sun-size);
+    height: var(--sun-size);
+    background: radial-gradient(circle, #ffde00, #ff8c00);
+    border-radius: 50%;
+    box-shadow: 0 0 50px #ff8c00;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-EOF
+
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+}
+
+.mercury-orbit {
+    width: var(--mercury-orbit);
+    height: var(--mercury-orbit);
+    margin-left: calc(var(--mercury-orbit) / -2);
+    margin-top: calc(var(--mercury-orbit) / -2);
+    animation: orbit 8s linear infinite;
+}
+
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    transform-origin: center;
+}
+
+.mercury {
+    width: var(--mercury-size);
+    height: var(--mercury-size);
+    background: linear-gradient(to right, #a9a9a9, #696969);
+    right: calc(var(--mercury-size) / 2);
+    top: 50%;
+    margin-top: calc(var(--mercury-size) / -2);
+}
+
+/* Add other planets (Venus, Earth, Mars...) with unique colors/sizes */
+
+@keyframes orbit {
+    from { transform: rotateZ(0deg); }
+    to { transform: rotateZ(360deg); }
+}
